@@ -1,2 +1,72 @@
 from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
 
+
+def clusterize(X, num_of_clusters=3, random_state=42):
+    model = KMeans(X, 
+                   n_clusters=num_of_clusters, 
+                   random_state=random_state)
+    labels = model.fit(X)
+    centroids = model.cluster_centers_
+    
+    return model, labels, centroids
+
+def plot_elbow(X, max_k=20):
+    wcss = []
+
+    for k in range(2, max_k + 1):
+        kmeans = KMeans(n_clusters=k, 
+                        random_state=42)
+        kmeans.fit(X)
+        wcss.append(kmeans.inertia_)
+    
+    plt.figure(figsize=(8,5))
+    plt.plot(range(2,max_k + 1), 
+             wcss, 
+             marker='o')
+    plt.xlabel("Number of clusters (k)")
+    plt.ylabel("WCSS (Soma dos quadrados dentro do cluster)")
+    plt.title("Elbow Method for Optimal k")
+    plt.show()
+
+def evaluate_cluster(X, labels):
+    return silhouette_score(X, labels)
+
+def plot_clusters(X, labels, centroids=None):
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X)
+
+    plt.figure(figsize=(8,6))
+    sns.scatterplot(x=X_pca[:,0], 
+                    y=X_pca[:,1], 
+                    hue=labels, 
+                    palette="viridis", 
+                    s=80, 
+                    edgecolor="k")
+    
+    if centroids is not None:
+        centroids_pca = pca.transform(centroids)
+        plt.scatter(x=centroids_pca[:,0], 
+                    y=centroids_pca[:,1],
+                    c="red",
+                    marker="X",
+                    s=200,
+                    label="Centroids")
+        
+    plt.title("KMeans: Projeção de clusters 2D")
+    plt.legend()
+    plt.show()
+
+def pairplot(df, labels, palette="tab10"):
+    df_labeled = df
+    df_labeled["Cluster"] = labels
+    sns.pairplot(df_labeled, hue="Clusters", palette=palette)
+    plt.show()
+
+def crosstab(df):
+    pd.crosstab()

@@ -44,7 +44,14 @@ def data_preprocessing(file_path, fill_method="mean", one_hot_encode=False, remo
             IQR = Q3 - Q1
             lower_bound = Q1 - 1.5 * IQR
             upper_bound = Q3 + 1.5 * IQR
-            df = df[]
+            df = df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+        
+        num_rows_after = df.shape[0]
+        num_rows_removed = num_rows_before - num_rows_after
+        if num_rows_removed > 0:
+            log.append(f"Foram removidas {num_rows_removed} linhas.")
+        else:
+            log.append("Nenhum outlier detectado.")
 
     if one_hot_encode:
         df = pd.get_dummies(df, drop_first=True).astype(int)
