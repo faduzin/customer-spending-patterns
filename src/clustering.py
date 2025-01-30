@@ -10,8 +10,7 @@ def clusterize(X,
                num_of_clusters=3, 
                random_state=42):
     
-    model = KMeans(X, 
-                   n_clusters=num_of_clusters, 
+    model = KMeans(n_clusters=num_of_clusters, 
                    random_state=random_state)
     labels = model.fit(X)
     centroids = model.cluster_centers_
