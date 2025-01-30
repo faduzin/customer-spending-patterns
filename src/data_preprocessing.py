@@ -1,17 +1,75 @@
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-def preprocess_mall_customers(file_path):
-    df = pd.read_csv(file_path)
-    df = pd.get_dummies(df, drop_first=True).astype(int)
-    df = df.rename(columns={"Annual Income (k$)":"Annual Income", "Spending Score (1-100)":"Spending Score", "Gender_Male":"Gender"})
+# Objetivo da função é preprocessar um dataset e deixa-lo pronto para o treinamento do modelo
+def data_preprocessing(file_path, fill_method="mean", one_hot_encode=False, remove_outliers=True, log_changes=True):
+
+    try:
+        df=pd.read_csv(file_path)
+    except:
+        raise("Caminho inválido.")
+        return
+
+    log = []
+
+    num_duplicates = df.duplicated().sum()
+    if num_duplicates > 0:
+        df = df.drop_duplicates()
+        log.append(f"{num_duplicates} linhas com valores duplicados removidas.")
+
+    num_missing_values = df.isnull().sum().sum()
+    if num_missing_values > 0:
+        log.append(f"Encontrados {num_missing_values} valores vazios.")
+        match fill_method:
+            case "mean":
+                df = df.fillna(df.mean(), inplace=True)
+                log.append("Valores completados utilizando o valor médio.")
+            case "median":
+                df = df.fillna(df.median(), inplace=True)
+                log.append("Valores completados utilizando o valor mediano.")
+            case "mode":
+                df = df.fillna(df.mode().iloc[0], inplace=True)
+                log.append("Valores completados utilizando o valor da coluna.")
+            case _:
+                log.append("Valores não completados. Método invalido.")
+
     
-    scaler = MinMaxScaler()
-    df = scaler.fit_transform(df)
+    if remove_outliers:
+        num_rows_before = df.shape[0]
+        numeric_cols = df.select_dtypes(include=[np.number]).columns
+        for column in numeric_cols:
+            Q1 = df[column].quantile(0.25)
+            Q3 = df[column].quantile(0.75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - 1.5 * IQR
+            upper_bound = Q3 + 1.5 * IQR
+            df = df[]
+
+    if one_hot_encode:
+        df = pd.get_dummies(df, drop_first=True).astype(int)
+        log.append("Colunas com valores remapeados em One_Hot_Encoding.")
+
+    if log_changes:
+        print("\n".join(log))
+    
+    print("Pré-processamento bem sucedido.")
 
     return df
 
-def preprocess_wholesome_customers(file_path):
-    df = pd.read_csv(file_path)
-
-def scale()
+# Retorna o dataframe dimensionado
+def data_scale(df, scaler_method="MinMax", print_log=True):
+    match scaler_method:
+        case "MinMax":
+            scaler = MinMaxScaler()
+            X = scaler.fit_transform(df)
+            if print_log: print("Valores dimensionados utilizando o método MinMax.")
+            return X
+        case "Standard":
+            scaler = StandardScaler()
+            X = scaler.fit_transform(df)
+            if print_log: print("Valores dimensionados utilizando o método Standard.")
+            return X
+        case _:
+            print("Valores não dimensionados. Método inválido.")
+            return df
