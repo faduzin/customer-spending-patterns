@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from src.utils import log_changes
 
 # Objetivo da função é preprocessar um dataset e deixa-lo pronto para o treinamento do modelo
-def data_preprocessing(file_path, 
+def data_preprocess(file_path, 
                        fill_method="mean", 
                        one_hot_encode=False, 
                        remove_outliers=True, 
@@ -62,7 +63,7 @@ def data_preprocessing(file_path,
         log.append("Colunas com valores remapeados em One_Hot_Encoding.")
 
     if log_changes:
-        print("\n".join(log))
+        log_changes(log)
     
     print("Pré-processamento bem sucedido.")
 
