@@ -8,7 +8,8 @@ def data_preprocess(df,
                     fill_method="mean", 
                     one_hot_encode=False, 
                     remove_outliers=True, 
-                    log_track=True):
+                    log_track=True,
+                    dataset_name="Unknown"):
     
 
     log = []
@@ -58,7 +59,7 @@ def data_preprocess(df,
         log.append("Colunas com valores remapeados em One_Hot_Encoding.")
 
     if log_track:
-        log_changes(log)
+        log_changes(log, dataset_name=dataset_name)
     
     print("Pré-processamento bem sucedido.")
 

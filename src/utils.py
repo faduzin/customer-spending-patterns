@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def log_changes(log_messages, log_file="logs/preprocessing_log.txt"):
+def log_changes(log_messages, log_file="logs/preprocessing_log.txt", dataset_name="Unknown"):
     
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(log_file, "a") as f:
         f.write(f"\n[{timestamp}]\n")
+        f.write(f"\n[Dataset:{dataset_name}]\n")
         for message in log_messages:
             f.write(f"[{message}]\n")
     print("\n".join(log_messages))
