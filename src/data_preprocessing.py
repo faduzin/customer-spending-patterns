@@ -3,8 +3,12 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 # Objetivo da função é preprocessar um dataset e deixa-lo pronto para o treinamento do modelo
-def data_preprocessing(file_path, fill_method="mean", one_hot_encode=False, remove_outliers=True, log_changes=True):
-
+def data_preprocessing(file_path, 
+                       fill_method="mean", 
+                       one_hot_encode=False, 
+                       remove_outliers=True, 
+                       log_changes=True):
+    
     try:
         df=pd.read_csv(file_path)
     except:
@@ -65,7 +69,10 @@ def data_preprocessing(file_path, fill_method="mean", one_hot_encode=False, remo
     return df
 
 # Retorna o dataframe dimensionado
-def data_scale(df, scaler_method="MinMax", print_log=True):
+def data_scale(df, 
+               scaler_method="MinMax", 
+               print_log=True):
+    
     match scaler_method:
         case "MinMax":
             scaler = MinMaxScaler()

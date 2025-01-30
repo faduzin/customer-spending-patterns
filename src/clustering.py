@@ -4,10 +4,12 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import pandas as pd
 
 
-def clusterize(X, num_of_clusters=3, random_state=42):
+def clusterize(X, 
+               num_of_clusters=3, 
+               random_state=42):
+    
     model = KMeans(X, 
                    n_clusters=num_of_clusters, 
                    random_state=random_state)
@@ -62,11 +64,10 @@ def plot_clusters(X, labels, centroids=None):
     plt.legend()
     plt.show()
 
-def pairplot(df, labels, palette="tab10"):
+def pairplot(df, labels):
     df_labeled = df
     df_labeled["Cluster"] = labels
-    sns.pairplot(df_labeled, hue="Clusters", palette=palette)
+    sns.pairplot(df_labeled, 
+                 hue="Clusters", 
+                 palette="tab10")
     plt.show()
-
-def crosstab(df):
-    pd.crosstab()
