@@ -12,7 +12,7 @@ def log_changes(log_messages, log_file="logs/preprocessing_log.txt", dataset_nam
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(log_file, "a") as f:
         f.write(f"\n[{timestamp}]\n")
-        f.write(f"\n[Dataset:{dataset_name}]\n")
+        f.write(f"[Dataset:{dataset_name}]\n")
         for message in log_messages:
             f.write(f"[{message}]\n")
     print("\n".join(log_messages))
