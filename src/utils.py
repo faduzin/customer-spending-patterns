@@ -55,16 +55,16 @@ def plot_boxplot_and_histogram(df, column_name):
                              2, 
                              figsize=(12,4))
 
-    sns.boxplot(x=df[column_name], ax=axes[0,0])
-    axes[0,0].set_title(f"Box plot de {column_name}")
+    sns.boxplot(x=df[column_name], ax=axes[0])
+    axes[0].set_title(f"Box plot de {column_name}")
 
-    axes[0,1].hist(df[column_name],
+    axes[1].hist(df[column_name],
                    bins=30,
                    edgecolor="Black",
                    alpha=0.7)
-    axes[0,1].set_title(f"Histograma de {column_name}")
-    axes[0,1].set_xlabel(column_name)
-    axes[0,1].set_ylabel("Frequência")
+    axes[1].set_title(f"Histograma de {column_name}")
+    axes[1].set_xlabel(column_name)
+    axes[1].set_ylabel("Frequência")
 
     plt.tight_layout()
     plt.show()
