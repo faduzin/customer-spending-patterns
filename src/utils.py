@@ -68,3 +68,12 @@ def plot_boxplot_and_histogram(df, column_name):
 
     plt.tight_layout()
     plt.show()
+
+def dataframe_info(df):
+    print(df.head(5))
+    print('-'*50)
+    print(df.info())
+    print('-'*50)
+    print(df.describe())
+    print('-'*50)
+    print('Amount of duplicates:',df.duplicated().sum())
