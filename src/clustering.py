@@ -12,7 +12,7 @@ def clusterize(X,
     
     model = KMeans(n_clusters=num_of_clusters, 
                    random_state=random_state)
-    labels = model.fit(X)
+    labels = model.labels_
     centroids = model.cluster_centers_
     
     return model, labels, centroids
@@ -67,6 +67,6 @@ def pairplot(df, labels):
     df_labeled = df
     df_labeled["Cluster"] = labels
     sns.pairplot(df_labeled, 
-                 hue="Clusters", 
+                 hue="Cluster", 
                  palette="tab10")
     plt.show()
