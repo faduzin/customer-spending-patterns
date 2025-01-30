@@ -33,7 +33,7 @@ def plot_elbow(X, max_k=20):
              marker='o')
     plt.xlabel("Number of clusters (k)")
     plt.ylabel("WCSS (Soma dos quadrados dentro do cluster)")
-    plt.title("Elbow Method for Optimal k")
+    plt.title("Elbow Method para Otimização do k")
     plt.show()
 
 def evaluate_cluster(X, labels):
