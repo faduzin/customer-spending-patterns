@@ -1,3 +1,4 @@
 src/__pycache__/
 notebooks/logs/
-data/processed/.
+data/processed/*
+!data/processed/.gitkeep
