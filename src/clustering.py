@@ -70,3 +70,13 @@ def pairplot(df, labels):
                  hue="Cluster", 
                  palette="tab10")
     plt.show()
+
+def find_best_k(X, max_k=20):
+    best_score = -10
+    for k in range(2, max_k+1):
+        model, labels, centroids = clusterize(X, num_of_clusters=k)
+        score = evaluate_cluster(X, model.labels_)
+        if score > best_score:
+            best_k = k
+            best_score = score
+    print(f"Melhor score:{best_score} com {best_k} clusters.")
