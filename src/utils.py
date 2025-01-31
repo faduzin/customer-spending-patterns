@@ -78,3 +78,8 @@ def dataframe_info(df):
     print(df.describe())
     print('-'*50)
     print('Amount of duplicates:',df.duplicated().sum())
+
+def plot_correlation(df):
+    plt.figure(figsize=(8,6))
+    sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+    plt.show()
