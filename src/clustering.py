@@ -71,9 +71,9 @@ def pairplot(df, labels):
                  palette="tab10")
     plt.show()
 
-def find_best_k(X, max_k=20):
+def find_best_k(X, start_k=2, max_k=20):
     best_score = -10
-    for k in range(2, max_k+1):
+    for k in range(start_k, max_k+1):
         model, labels, centroids = clusterize(X, num_of_clusters=k)
         score = evaluate_cluster(X, model.labels_)
         if score > best_score:
