@@ -70,6 +70,7 @@ def plot_boxplot_and_histogram(df, column_name):
     plt.tight_layout()
     plt.show()
 
+
 def dataframe_info(df):
     print(df.head(5))
     print('-'*50)
@@ -79,7 +80,8 @@ def dataframe_info(df):
     print('-'*50)
     print('Amount of duplicates:',df.duplicated().sum())
 
-def plot_correlation(df):
+
+def plot_correlations(df):
     plt.figure(figsize=(8,6))
     sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
     plt.show()

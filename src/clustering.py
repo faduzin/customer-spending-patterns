@@ -17,6 +17,7 @@ def clusterize(X,
     
     return model, labels, centroids
 
+
 def plot_elbow(X, max_k=20):
     wcss = []
 
@@ -35,8 +36,10 @@ def plot_elbow(X, max_k=20):
     plt.title("Elbow Method para Otimização do k")
     plt.show()
 
+
 def evaluate_cluster(X, labels):
     return silhouette_score(X, labels)
+
 
 def plot_clusters(X, labels, centroids=None):
     pca = PCA(n_components=2)
@@ -63,6 +66,7 @@ def plot_clusters(X, labels, centroids=None):
     plt.legend()
     plt.show()
 
+
 def pairplot(df, labels):
     df_labeled = df.copy()
     df_labeled["Cluster"] = labels
@@ -70,6 +74,7 @@ def pairplot(df, labels):
                  hue="Cluster", 
                  palette="tab10")
     plt.show()
+
 
 def find_best_k(X, start_k=2, max_k=20):
     best_score = -10
