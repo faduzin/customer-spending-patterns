@@ -95,7 +95,19 @@ def plot_cluster_count(labels):
     colors_rgb = plt.cm.tab10.colors
     colors_hex = [to_hex(color) for color in colors_rgb]
 
-    cluster_counts.plot(kind="bar", color=colors_hex[:len(cluster_counts)], edgecolor="black")
+    ax = cluster_counts.plot(kind="bar",
+                             color=colors_hex[:len(cluster_counts)], 
+                             edgecolor="black")
+    
+    for idx, value in enumerate(cluster_counts):
+        ax.text(idx, 
+                value + 0.5, 
+                str(value), 
+                ha='center', 
+                va='bottom', 
+                fontsize=10, 
+                fontweight='bold')
+
     plt.xticks(rotation=0)
     plt.xlabel("Cluster")
     plt.ylabel("Number of points")

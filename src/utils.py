@@ -26,9 +26,9 @@ def save_dataframe(df, file_path):
         raise("Falha ao salvar arquivo.")
     
 
-def load_dataframe(file_path):
+def load_dataframe(file_path, sep=","):
     try:
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, sep=sep)
         print("Dataframe carregado com sucesso.")
         return df
     except:
