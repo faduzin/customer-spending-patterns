@@ -90,8 +90,10 @@ def find_best_k(X, start_k=2, max_k=20):
 
 def plot_cluster_count(labels):
     cluster_counts = pd.Series(labels).value_counts().sort_index()
+    
+    colors = plt.cm.tab10.colors
 
-    cluster_counts.plot(kind="bar", color="skyblue", edgecolor="black")
+    cluster_counts.plot(kind="bar", color=colors[:len(cluster_counts)], edgecolor="black")
     plt.xticks(rotation=0)
     plt.xlabel("Cluster")
     plt.ylabel("Number of points")
