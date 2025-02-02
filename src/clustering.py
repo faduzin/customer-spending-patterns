@@ -1,6 +1,7 @@
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
+from matplotlib.colors import to_hex
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -50,7 +51,7 @@ def plot_clusters(X, labels, centroids=None):
     sns.scatterplot(x=X_pca[:,0], 
                     y=X_pca[:,1], 
                     hue=labels, 
-                    palette="viridis", 
+                    palette="tab10", 
                     s=80, 
                     edgecolor="k")
     
@@ -91,9 +92,10 @@ def find_best_k(X, start_k=2, max_k=20):
 def plot_cluster_count(labels):
     cluster_counts = pd.Series(labels).value_counts().sort_index()
     
-    colors = plt.cm.tab10.colors
+    colors_rgb = plt.cm.tab10.colors
+    colors_hex = [to_hex(color) for color in colors_rgb]
 
-    cluster_counts.plot(kind="bar", color=colors[:len(cluster_counts)], edgecolor="black")
+    cluster_counts.plot(kind="bar", color=colors_hex[:len(cluster_counts)], edgecolor="black")
     plt.xticks(rotation=0)
     plt.xlabel("Cluster")
     plt.ylabel("Number of points")
