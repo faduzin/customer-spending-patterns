@@ -76,9 +76,109 @@ This loop continues until the centroids don’t move much anymore. That’s when
 
 ## The Process
 
+This section outlines the key steps taken throughout the project, from organizing reusable functions to performing exploratory data analysis and clustering.
 
+### Modularizing Functions for Reusability
+
+At the start of this project, I focused on designing a modular structure for functions that would be reused across various experiments. This approach streamlined my workflow, reduced redundancy, and made the codebase more organized and maintainable.
+
+To achieve this, I created separate modules for specific tasks:
+
+- **data_preprocessing.py:** Contained functions like data_preprocess and data_scale for cleaning and scaling datasets.
+
+- **clustering.py:** Focused on clustering techniques with functions such as clusterize, plot_elbow, evaluate_cluster, plot_clusters, pairplot, find_best_k, and plot_cluster_count.
+
+- **utils.py:** Included utility functions like log_changes, save_dataframe, load_dataframe, plot_cluster_distribution, plot_boxplot_and_histogram, dataframe_info, and plot_correlations.
+
+By defining an __all__ list, I explicitly specified which functions could be imported when using from module import *, ensuring clarity and control over the namespace:
+
+```Python
+__all__ = [
+    "data_preprocess",
+    "data_scale",
+    "clusterize",
+    "plot_elbow",
+    "evaluate_cluster",
+    "plot_clusters",
+    "pairplot",
+    "find_best_k",
+    "plot_cluster_count",
+    "log_changes",
+    "save_dataframe",
+    "load_dataframe",
+    "plot_cluster_distribution",
+    "plot_boxplot_and_histogram",
+    "dataframe_info",
+    "plot_correlations",
+]
+```
+This modular design allowed me to efficiently call functions across experiments, keeping the main scripts clean and focused on the analysis rather than repetitive code.
+
+### Exploratory Data Analysis
+
+The exploratory analysis was conducted in the notebook [01_exploratory_analysis.ipynb](notebooks\01_exploratory_analysis.ipynb), starting with importing the dataset and using the ``dataframe_info`` function to inspect its structure. This step helped identify duplicates, missing values, and general characteristics of the data.
+
+Next, I applied the ``plot_boxplot_and_histogram`` function to visualize the numeric features, which allowed me to detect potential outlier candidates. If a large number of outliers were apparent in the plots, they were addressed in the preprocessing phase.
+
+The ``data_preprocess`` function was then used to:
+
+- Remove detected outliers if necessary.
+
+- One-hot encode string classifications.
+
+- Fill missing values using a specified method.
+
+- Log all preprocessing actions for traceability.
+
+After completing these steps, I saved the preprocessed dataframe for use in subsequent analyses, ensuring a consistent and clean dataset moving forward.
+
+### Clustering Analysis
+
+The clustering analysis was performed in the [notebook 02_clustering_analysis.ipynb](notebooks\02_clustering_analysis.ipynb). I began by importing the preprocessed dataframe and removing static features like IDs and categorical variables such as gender, which were not relevant for clustering.
+
+I then plotted the correlation matrix of the features using the ``plot_correlations`` function and removed any features with a correlation of 0.8 or higher to avoid redundancy. After cleaning the dataset, I applied the ``data_scale`` function to standardize the features, preparing them for clustering.
+
+To determine the optimal number of clusters, I used the ``plot_elbow`` method to visualize the elbow plot and identified the best silhouette score with the ``find_best_k`` function. Based on these insights, I selected the appropriate number of clusters.
+
+With the number of clusters defined, I created and trained a clustering model using the clusterize function. I then visualized the results using several techniques:
+
+- ``pairplot`` to observe the separation between clusters.
+
+- ``plot_cluster_count`` to display the distribution of data points across clusters.
+
+- ``plot_cluster`` to display 2D dimensionality reduction plot to visually inspect the cluster divisions.
+
+These analyses provided clear insights into the clustering structure of the data, leading to meaningful interpretations and conclusions.
 
 ## The Analysis
+
+### Iris Dataset
+
+For the first analysis, I worked with the classic Iris dataset. After preprocessing, the general structure of the dataset consisted of the following features: sepal length, sepal width, petal length, petal width, and species.
+
+#### Exploratory Data Analysis
+
+During the exploratory analysis, no duplicates or missing values were detected. The only necessary preprocessing step was to one-hot encode the species feature. After completing these steps, I saved the cleaned dataframe for further analysis.
+
+#### Preparing for Clustering
+
+The next step involved removing the ID column and separating the species feature, as the goal of this experiment was to compare how the K-Means clustering method performs against the actual species classifications.
+
+I analyzed feature correlations and found that petal width had a high correlation, leading to its removal from the dataset to improve clustering performance. (I will add an image of the correlation plot here.)
+
+#### Clustering with K-Means
+
+To determine the optimal number of clusters, I used the elbow method for verification and measured the silhouette score. Although the best silhouette score was achieved at k=2, we set k=3 to align with the known number of species in the dataset.
+
+After creating and training the K-Means model:
+
+- I generated pair plots to visualize feature distributions across clusters.
+
+- Plotted the distribution of points in each cluster.
+
+- Created a 2D reduced version of the dataset to visualize the clustering.
+
+I repeated these visualizations for the actual species classes, placing the images side by side for comparison. The results showed that while the K-Means algorithm identified clusters that were similar to the actual species, it was not a perfect match. The algorithm incorrectly assigned more points to Class 1 than to Class 2, despite the dataset containing 50 samples for each class. However, the clusters were quite close, and the 2D reduced plot clearly demonstrated a distribution that closely mirrors the real classes.
 
 ## What I Learned
 
