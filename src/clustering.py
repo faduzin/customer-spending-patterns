@@ -92,6 +92,7 @@ def plot_cluster_count(labels):
     cluster_counts = pd.Series(labels).value_counts().sort_index()
 
     cluster_counts.plot(kind="bar", color="skyblue", edgecolor="black")
+    plt.xticks(rotation=0)
     plt.xlabel("Cluster")
     plt.ylabel("Number of points")
     plt.title("Número de pontos em cada cluster")
