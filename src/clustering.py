@@ -4,6 +4,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import pandas as pd
 
 
 def clusterize(X, 
@@ -85,3 +86,13 @@ def find_best_k(X, start_k=2, max_k=20):
             best_k = k
             best_score = score
     print(f"Melhor score:{best_score} com {best_k} clusters.")
+
+
+def plot_cluster_count(labels):
+    cluster_counts = pd.Series(labels).value_counts().sort_index()
+
+    cluster_counts.plot(kind="bar", color="skyblue", edgecolor="black")
+    plt.xlabel("Cluster")
+    plt.ylabel("Number of points")
+    plt.title("Número de pontos em cada cluster")
+    plt.show()
