@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, LabelEncoder
 from src.utils import log_changes
 
 # Objetivo da função é preprocessar um dataset e deixa-lo pronto para o treinamento do modelo
 def data_preprocess(df, 
                     fill_method="mean", 
-                    one_hot_encode=False, 
+                    label_encode=False, 
                     remove_outliers=True, 
                     log_track=True,
                     dataset_name="Unknown"):
@@ -54,9 +54,11 @@ def data_preprocess(df,
         else:
             log.append("Nenhum outlier detectado.")
 
-    if one_hot_encode:
-        df = pd.get_dummies(df, drop_first=True).astype(int)
-        log.append("Colunas com valores remapeados em One_Hot_Encoding.")
+    if label_encode:
+        le = LabelEncoder()
+        for col in df.select_dtypes(include='object').columns:
+            df[col] = le.fit_transform(df[col])
+        log.append("Colunas remapeadas usando Label Encode.")
 
     if log_track:
         log_changes(log, dataset_name=dataset_name)
