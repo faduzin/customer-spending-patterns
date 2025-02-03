@@ -230,7 +230,7 @@ After defining the number of clusters, I created and trained the K-Means model:
 
 1. I generated pair plots to visualize the separation of features within the clusters.
 
-<img src="assets\mall-pairplot.png" alt="Mall Pairplot" width="70%">
+<img src="assets\mall-pairplot.png" alt="Mall Pairplot" width="100%">
 
 2. Plotted the number of points in each cluster.
 
