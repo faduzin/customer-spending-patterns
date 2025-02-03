@@ -114,6 +114,8 @@ __all__ = [
 ```
 This modular design allowed me to efficiently call functions across experiments, keeping the main scripts clean and focused on the analysis rather than repetitive code.
 
+The repository is organized with dedicated folders for notebooks, scripts, and outputs, ensuring a clean and navigable project layout.
+
 ### Exploratory Data Analysis
 
 The exploratory analysis was conducted in the notebook [01_exploratory_analysis.ipynb](notebooks\01_exploratory_analysis.ipynb), starting with importing the dataset and using the ``dataframe_info`` function to inspect its structure. This step helped identify duplicates, missing values, and general characteristics of the data.
@@ -158,15 +160,23 @@ For the first analysis, I worked with the classic Iris dataset. After preprocess
 
 #### Exploratory Data Analysis
 
-During the exploratory analysis, no duplicates or missing values were detected. The only necessary preprocessing step was to one-hot encode the species feature. After completing these steps, I saved the cleaned dataframe for further analysis.
+During the exploratory analysis, no duplicates or missing values were detected. The only necessary preprocessing step would be to encode the species feature, but as it will not be used by the model, it was not done. After completing these steps, I saved the dataframe for further analysis.
 
 #### Preparing for Clustering
 
 The next step involved removing the ID column and separating the species feature, as the goal of this experiment was to compare how the K-Means clustering method performs against the actual species classifications.
 
-I analyzed feature correlations and found that petal width had a high correlation, leading to its removal from the dataset to improve clustering performance. (I will add an image of the correlation plot here.)
+
+<img src="assets/iris-correlations.png" alt="Iris Correlations" width="70%">
+
+
+
+I analyzed feature correlations and found that petal width had a high correlation, leading to its removal from the dataset to improve clustering performance.
 
 #### Clustering with K-Means
+
+<img src="assets/iris-elbow-method.png" alt="Iris Elbow Method" width="70%">
+
 
 To determine the optimal number of clusters, I used the elbow method for verification and measured the silhouette score. Although the best silhouette score was achieved at k=2, we set k=3 to align with the known number of species in the dataset.
 
@@ -174,11 +184,26 @@ After creating and training the K-Means model:
 
 - I generated pair plots to visualize feature distributions across clusters.
 
+| Pairplot - Cluster                           | Pairplot - Real                              |
+|----------------------------------------------|----------------------------------------------|
+| ![Pairplot - Cluster](assets/iris-kmeans-pairplot.png) | ![Pairplot - Real](assets/iris-real-pairplot.png) |
+
 - Plotted the distribution of points in each cluster.
+
+| Count Plot - Cluster                         | Count Plot - Real                            |
+|----------------------------------------------|----------------------------------------------|
+| ![Count Plot - Cluster](assets/iris-kmeans-count.png) | ![Count Plot - Real](assets/iris-real-count.png) |
 
 - Created a 2D reduced version of the dataset to visualize the clustering.
 
-I repeated these visualizations for the actual species classes, placing the images side by side for comparison. The results showed that while the K-Means algorithm identified clusters that were similar to the actual species, it was not a perfect match. The algorithm incorrectly assigned more points to Class 1 than to Class 2, despite the dataset containing 50 samples for each class. However, the clusters were quite close, and the 2D reduced plot clearly demonstrated a distribution that closely mirrors the real classes.
+| 2D Projection - Cluster                      | 2D Projection - Real                         |
+|----------------------------------------------|----------------------------------------------|
+| ![2D Projection - Cluster](assets/iris-kmeans-2d-projection.png) | ![2D Projection - Real](assets/iris-real-2d-projection.png) |
+
+
+
+
+I repeated these visualizations for the actual species classes, placing the images side by side for comparison. When comparing the results, it became evident that although the number of samples in each cluster was nearly accurate compared to the original classes, the clustering algorithm was only able to correctly identify one class: Iris-setosa. The Iris-versicolor and Iris-virginica classes were clearly mixed, indicating that the K-Means algorithm struggled to distinguish between these two species. Despite this, the clusters were relatively close, and the 2D reduced plot demonstrated a distribution that somewhat mirrors the real classes.
 
 ### Mall Customers Dataset
 
@@ -186,13 +211,18 @@ For the second analysis, I used the Mall Customers dataset. After preprocessing,
 
 #### Exploratory Data Analysis
 
-No duplicates or null values were found during the exploratory analysis. However, two potential outliers were identified and removed. The Gender feature was one-hot encoded, and the preprocessed dataframe was saved for further analysis.
+No duplicates or null values were found during the exploratory analysis. However, two potential outliers were identified and removed. The Gender feature was label encoded, and the preprocessed dataframe was saved for further analysis.
 
 #### Preparing for Clustering
 
 For the clustering analysis, I first removed the CustomerID and Gender features. While gender could have been a perfect variable for clustering into two groups, its inclusion would have oversimplified the study and limited the insights we could extract.
 
+<img src="assets\mall-correlations.png" alt="Mall Correlations" width="70%">
+
+
 Next, I plotted the correlation matrix of the features. Since no features were highly correlated, I proceeded to the next steps without further adjustments. I applied the elbow method and evaluated the silhouette scores for different k values. This analysis led to selecting 6 clusters for the experiment.
+
+<img src="assets\mall-elbow-method.png" alt="Mall Elbow Method" width="70%">
 
 #### Clustering with K-Means
 
@@ -200,9 +230,15 @@ After defining the number of clusters, I created and trained the K-Means model:
 
 1. I generated pair plots to visualize the separation of features within the clusters.
 
+<img src="assets\mall-pairplot.png" alt="Mall Pairplot" width="70%">
+
 2. Plotted the number of points in each cluster.
 
+<img src="assets\mall-count.png" alt="Mall Cluster Count" width="70%">
+
 3. Created a 2D visualization to provide a simplified view of the clustering results.
+
+<img src="assets\mall-2d-projection.png" alt="Mall 2D Projection" width="70%">
 
 The clustering results provided valuable insights into customer segments:
 
