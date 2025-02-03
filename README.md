@@ -180,6 +180,56 @@ After creating and training the K-Means model:
 
 I repeated these visualizations for the actual species classes, placing the images side by side for comparison. The results showed that while the K-Means algorithm identified clusters that were similar to the actual species, it was not a perfect match. The algorithm incorrectly assigned more points to Class 1 than to Class 2, despite the dataset containing 50 samples for each class. However, the clusters were quite close, and the 2D reduced plot clearly demonstrated a distribution that closely mirrors the real classes.
 
+### Mall Customers Dataset
+
+For the second analysis, I used the Mall Customers dataset. After preprocessing, the dataset's features consisted of: CustomerID, Gender, Age, Annual Income (k$), and Spending Score (1-100).
+
+#### Exploratory Data Analysis
+
+No duplicates or null values were found during the exploratory analysis. However, two potential outliers were identified and removed. The Gender feature was one-hot encoded, and the preprocessed dataframe was saved for further analysis.
+
+#### Preparing for Clustering
+
+For the clustering analysis, I first removed the CustomerID and Gender features. While gender could have been a perfect variable for clustering into two groups, its inclusion would have oversimplified the study and limited the insights we could extract.
+
+Next, I plotted the correlation matrix of the features. Since no features were highly correlated, I proceeded to the next steps without further adjustments. I applied the elbow method and evaluated the silhouette scores for different k values. This analysis led to selecting 6 clusters for the experiment.
+
+#### Clustering with K-Means
+
+After defining the number of clusters, I created and trained the K-Means model:
+
+1. I generated pair plots to visualize the separation of features within the clusters.
+
+2. Plotted the number of points in each cluster.
+
+3. Created a 2D visualization to provide a simplified view of the clustering results.
+
+The clustering results provided valuable insights into customer segments:
+
+- **Cluster 0:** The largest group with 42 points, consisting of people of moderate age with average income and moderate spending habits.
+
+- **Cluster 1:** Young individuals with high income and high spending, comprising 38 points.
+
+- **Cluster 2:** Moderately aged individuals with low income and low-to-moderate spending.
+
+- **Cluster 3:** People of all ages with high income but low spending, indicating a tendency to save.
+
+- **Cluster 4:** Young individuals with low income but high spending behavior.
+
+- **Cluster 5:** Young individuals with moderate income and moderate spending habits.
+
+Insights and Recommendations
+
+These clusters provide actionable insights for targeted marketing strategies:
+
+- Cluster 1 and Cluster 4 represent high spenders. Tailored loyalty programs or exclusive offers could enhance engagement and profitability.
+
+- Cluster 3, with high income but low spending, could benefit from personalized marketing strategies that highlight premium or luxury products to encourage higher expenditure.
+
+- Cluster 2 and Cluster 0 could be targeted with budget-friendly promotions to increase spending while maintaining their loyalty.
+
+By understanding these customer segments, businesses can develop more effective marketing strategies, optimize resource allocation, and enhance overall profitability.
+
 ## What I Learned
 
 Through this project, I deepened my understanding of using Python and its libraries to analyze real-world datasets. Key takeaways include:
@@ -215,6 +265,14 @@ This project allowed me to practice and enhance the following skills:
 - **Problem-Solving:** Applying critical thinking to interpret results and refine analyses for meaningful conclusions.
 
 ## Conclusion
+
+This project has been instrumental in enhancing both my technical and analytical skills. By working with real-world datasets like the Iris and Mall Customers datasets, I gained a comprehensive understanding of data preprocessing, exploratory analysis, and unsupervised learning techniques, particularly K-Means clustering.
+
+The comparison of K-Means clustering with actual classes in the Iris dataset provided valuable insights into how clustering algorithms can approximate real-world classifications, while also highlighting their limitations. Similarly, the segmentation of mall customers uncovered distinct behavioral patterns that could drive targeted marketing strategies and business decisions.
+
+On a professional level, this project sharpened my ability to modularize code for reusability, structure complex analyses, and derive meaningful conclusions from data. These skills are highly relevant in data science and analytics roles, where the ability to extract actionable insights from raw data is crucial. Additionally, the hands-on experience with clustering algorithms and visualization techniques has prepared me to tackle more advanced machine learning projects in the future.
+
+Overall, this project not only deepened my technical expertise but also reinforced the importance of clear, structured analysis in solving real-world problems and driving data-driven decision-making.
 
 ## Contact
 
