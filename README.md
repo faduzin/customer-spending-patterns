@@ -182,19 +182,19 @@ To determine the optimal number of clusters, I used the elbow method for verific
 
 After creating and training the K-Means model:
 
-- I generated pair plots to visualize feature distributions across clusters.
+1. I generated pair plots to visualize feature distributions across clusters.
 
 | Pairplot - Cluster                           | Pairplot - Real                              |
 |----------------------------------------------|----------------------------------------------|
 | ![Pairplot - Cluster](assets/iris-kmeans-pairplot.png) | ![Pairplot - Real](assets/iris-real-pairplot.png) |
 
-- Plotted the distribution of points in each cluster.
+2. Plotted the distribution of points in each cluster.
 
 | Count Plot - Cluster                         | Count Plot - Real                            |
 |----------------------------------------------|----------------------------------------------|
 | ![Count Plot - Cluster](assets/iris-kmeans-count.png) | ![Count Plot - Real](assets/iris-real-count.png) |
 
-- Created a 2D reduced version of the dataset to visualize the clustering.
+3. Created a 2D reduced version of the dataset to visualize the clustering.
 
 | 2D Projection - Cluster                      | 2D Projection - Real                         |
 |----------------------------------------------|----------------------------------------------|
