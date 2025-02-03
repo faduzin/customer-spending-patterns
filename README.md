@@ -16,8 +16,9 @@ Este repositório contém análises completas de dois conjuntos de dados (**Iris
 6. [A Análise](#a-análise)  
 7. [O que Aprendi](#o-que-aprendi)  
 8. [Habilidades Praticadas](#habilidades-praticadas)  
-9. [Conclusão](#conclusão)  
-10. [Contato](#contato)
+9. [Conclusão](#conclusão)
+10. [Contribuições](#contribuições)
+11. [Contato](#contato)
 
 ---
 
@@ -306,6 +307,11 @@ De forma geral, este projeto não só ampliou minha expertise técnica como refo
 
 ---
 
+## Contribuições
+
+- Tayenne Euqueres
+- William de Oliveira Silva
+  
 ## Contato
 
 Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato:  
