@@ -143,7 +143,7 @@ Em seguida, apliquei a função `plot_boxplot_and_histogram` para visualizar as 
 A função `data_preprocess` foi então utilizada para:
 
 - Remover outliers identificados, se necessário.  
-- Realizar one-hot encoding de classificações em string.  
+- Realizar label encode de classificações em string.  
 - Preencher valores ausentes usando o método especificado.  
 - Registrar todas as ações de pré-processamento para rastreabilidade.
 
