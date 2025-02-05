@@ -126,7 +126,7 @@ The ``data_preprocess`` function was then used to:
 
 - Remove detected outliers if necessary.
 
-- One-hot encode string classifications.
+- Label encode string classifications.
 
 - Fill missing values using a specified method.
 
